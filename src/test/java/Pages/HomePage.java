@@ -11,5 +11,30 @@ public class HomePage extends BasePage {
     }
     @FindBy(css=".shopping_cart_link")
     private WebElement shoppingCart;
+    @FindBy(css="[id='react-burger-menu-btn']")
+    private WebElement burgerMenuButton;
+    @FindBy(css="[id='logout_sidebar_link']")
+    private WebElement logoutSidebar;
+    @FindBy(css="[id='dd-to-cart-sauce-labs-backpack']")
+    private WebElement addButton;
+    @FindBy(css="[id='remove-sauce-labs-backpack']")
+    private WebElement removeButton;
+
+    public HomePage loginText(String text) {
+        shoppingCart.click();
+        burgerMenuButton.click();
+        logoutSidebar.click();
+        addButton.click();
+        removeButton.click();
+        return new HomePage(super.getDriver());
+    }
+
+
+    public LoginPage logout() {
+        logoutSidebar.click();
+        return new LoginPage(driver);
+    }
+
+
 
 }
