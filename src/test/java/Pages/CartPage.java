@@ -16,4 +16,14 @@ public class CartPage extends BasePage {
     public WebElement checkoutBtn;
 
 
+    public CartPage removeProduct (String text) {
+        removeBtn.click();
+        return new CartPage(super.getDriver());
+    }
+
+
+    public Checkout1Page checkout() {
+        checkoutBtn.click();
+        return new Checkout1Page(driver);
+    }
 }

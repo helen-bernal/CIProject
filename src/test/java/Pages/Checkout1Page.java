@@ -19,5 +19,12 @@ public class Checkout1Page extends BasePage {
     @FindBy(css="[id='continue']")
     public WebElement continueBtn;
 
+    public Checkout2Page infoText(String text) {
+        firstNameTxt.sendKeys(text);
+        lastNametxt.sendKeys(text);
+        postalCodetxt.sendKeys(text);
+        continueBtn.click();
+        return new Checkout2Page(super.getDriver());
+    }
 
 }

@@ -14,4 +14,9 @@ public class Checkout3Page extends BasePage {
     @FindBy(css="[id='back-to-products']")
     public WebElement backBtn;
 
+    public HomePage backtoHome(String text){
+        backBtn.click();
+        return new HomePage(super.getDriver());
+    }
+
 }

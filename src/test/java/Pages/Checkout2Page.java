@@ -12,4 +12,9 @@ public class Checkout2Page extends BasePage {
     //Creación de elementos
     @FindBy(css="[id='finish']")
     public WebElement finishBtn;
+
+    public Checkout3Page finishSell (String text){
+        finishBtn.click();
+        return new Checkout3Page(super.getDriver());
+    }
 }

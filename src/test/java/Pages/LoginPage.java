@@ -18,9 +18,9 @@ public class LoginPage extends BasePage {
     @FindBy(css = "[id='login-button']")
     private WebElement loginButton;
 
-    public HomePage loginText(String text) {
-        usernameInput.sendKeys(text);
-        passwordInput.sendKeys(text);
+    public HomePage login(String username, String password) {
+        usernameInput.sendKeys(username);
+        passwordInput.sendKeys(password);
         loginButton.click();
         return new HomePage(super.getDriver());
     }

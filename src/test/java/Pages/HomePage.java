@@ -20,21 +20,18 @@ public class HomePage extends BasePage {
     @FindBy(css="[id='remove-sauce-labs-backpack']")
     private WebElement removeButton;
 
-    public HomePage loginText(String text) {
+    public CartPage cart () {
         shoppingCart.click();
+        return new CartPage(super.getDriver());
+    }
+    public HomePage loginText() {
         burgerMenuButton.click();
-        logoutSidebar.click();
         addButton.click();
         removeButton.click();
         return new HomePage(super.getDriver());
     }
-
-
     public LoginPage logout() {
         logoutSidebar.click();
         return new LoginPage(driver);
     }
-
-
-
 }
