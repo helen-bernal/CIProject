@@ -13,7 +13,7 @@ public class Checkout2Page extends BasePage {
     @FindBy(css="[id='finish']")
     public WebElement finishBtn;
 
-    public Checkout3Page finishSell (String text){
+    public Checkout3Page finishPurchase (){
         finishBtn.click();
         return new Checkout3Page(super.getDriver());
     }
