@@ -1,7 +1,9 @@
 package utils.baseTest;
+
 import Pages.LoginPage;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
 import utils.MyDriver;
 import org.openqa.selenium.WebDriver;
@@ -10,8 +12,8 @@ public class BaseTest {
     MyDriver mydriver;
 
     @BeforeMethod(alwaysRun=true)
-    @Parameters({"browser","url"})
-    public void beforeMethod(String browser, String url) {
+    @Parameters({"browser", "url"})
+    public void beforeMethod(@Optional("chrome") String browser, @Optional("https://www.saucedemo.com/") String url) {
         mydriver = new MyDriver(browser);
         mydriver.getDriver().manage().window().maximize();
         navigateTo(url);

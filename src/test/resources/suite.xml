@@ -1,12 +1,13 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 <suite name="Web Automation Suite">
+    <!-- Definición de parámetros a nivel de suite -->
     <parameter name="browser" value="chrome"/>
-    <parameter name="url" value="https://www.saucedemo.com/"/>
-    <parameter name="..."
-               value="..."/>
+    <parameter name="url" value="https://www.saucedemo.com"/>
 
-    <test name="Purchase Test">
+    <!-- Definir el test con las clases correspondientes -->
+    <test name="Base Test">
         <classes>
-            <class name="tests.PurchaseTest"/>
+            <class name="utils.baseTest.BaseTest"/>
         </classes>
     </test>
 </suite>
