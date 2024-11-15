@@ -3,45 +3,34 @@ import Pages.LoginPage;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Parameters;
-
 import utils.MyDriver;
+import org.openqa.selenium.WebDriver;
 
 public class BaseTest {
-    MyDriver driver;
+    MyDriver mydriver;
+
     @BeforeMethod(alwaysRun=true)
     @Parameters({"browser","url"})
-    public void beforeMethod(String browser,String url){
-        driver=new MyDriver(browser);
-        driver.getDriver().manage().window().maximize();
+    public void beforeMethod(String browser, String url) {
+        mydriver = new MyDriver(browser);
+        mydriver.getDriver().manage().window().maximize();
         navigateTo(url);
     }
 
-    /**
-     * Navigates to given URL
-     *
-     * @param url
-     * @author helen bernal
-     */
-
     private void navigateTo(String url) {
-        driver.getDriver().get(url);
+        mydriver.getDriver().get(url);
     }
-    /**
-     * It instantiates the first page loaded.
-     *
-     * @author helen bernal
-     * @return HomePage
-     */
-    public LoginPage loadFirstPage(){
-        return new LoginPage(driver.getDriver());
+
+    public LoginPage loadFirstPage() {
+        return new LoginPage(mydriver.getDriver());
     }
-    /**
-     * After the test execution it closes the browser.
-     *
-     * @author helen bernal
-     */
+
     @AfterMethod()
-    public void afterMethod(){
-        driver.getDriver().close();
+    public void afterMethod() {
+        mydriver.getDriver().close();
+    }
+
+    public WebDriver getDriver() {  // Nuevo método para obtener el driver
+        return mydriver.getDriver();
     }
 }

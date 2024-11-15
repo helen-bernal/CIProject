@@ -1,5 +1,6 @@
 package Pages;
 
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -18,5 +19,11 @@ public class Checkout3Page extends BasePage {
         backBtn.click();
         return new HomePage(super.getDriver());
     }
-
+    public boolean isOrderDoneTxtDisplayed() {
+        try{
+            return orderDoneTxt.isDisplayed();
+        }catch (NoSuchElementException e){
+            return false;
+        }
+    }
 }

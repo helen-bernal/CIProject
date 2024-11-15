@@ -1,5 +1,6 @@
 package Pages;
 
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -33,5 +34,12 @@ public class HomePage extends BasePage {
     public LoginPage logout() {
         logoutSidebar.click();
         return new LoginPage(driver);
+    }
+    public boolean isLogoutSidebarDisplayed() {
+        try{
+            return logoutSidebar.isDisplayed();
+        }catch (NoSuchElementException e){
+            return false;
+        }
     }
 }
