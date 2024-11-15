@@ -14,8 +14,10 @@ public class BaseTest {
     @BeforeMethod(alwaysRun=true)
     @Parameters({"browser", "url"})
     public void beforeMethod(@Optional("chrome") String browser, @Optional("https://www.saucedemo.com/") String url) {
-        mydriver = new MyDriver(browser);
-        mydriver.getDriver().manage().window().maximize();
+        if (mydriver == null || mydriver.getDriver() == null) {
+            mydriver = new MyDriver(browser);
+            mydriver.getDriver().manage().window().maximize();
+        }
         navigateTo(url);
     }
 
@@ -27,12 +29,11 @@ public class BaseTest {
         return new LoginPage(mydriver.getDriver());
     }
 
-    @AfterMethod()
+    @AfterMethod(alwaysRun=true)
     public void afterMethod() {
-        mydriver.getDriver().close();
+        //mydriver.closeDriver();
+        }
+    public WebDriver getDriver() {
+        return mydriver != null ? mydriver.getDriver() : null;
     }
-
-    public WebDriver getDriver() {  // Nuevo método para obtener el driver
-        return mydriver.getDriver();
     }
-}

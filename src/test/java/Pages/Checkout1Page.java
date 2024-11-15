@@ -12,14 +12,14 @@ public class Checkout1Page extends BasePage {
 
     @FindBy(css="[id='first-name']")
     public WebElement firstNameTxt;
-    @FindBy(css="[in='last-name']")
+    @FindBy(css="[id='last-name']")
     public WebElement lastNametxt;
     @FindBy(css="[id='postal-code']")
     public WebElement postalCodetxt;
     @FindBy(css="[id='continue']")
     public WebElement continueBtn;
 
-    public Checkout2Page infoText(String firstName, String lastName, String postalCode) {
+    public Checkout2Page continueCheck2(String firstName, String lastName, String postalCode) {
         firstNameTxt.sendKeys(firstName);
         lastNametxt.sendKeys(lastName);
         postalCodetxt.sendKeys(postalCode);

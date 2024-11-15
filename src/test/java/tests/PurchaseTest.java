@@ -1,19 +1,29 @@
 package tests;
-
 import Pages.CartPage;
+import Pages.Checkout1Page;
+import Pages.Checkout2Page;
+import Pages.Checkout3Page;
 import Pages.HomePage;
+import Pages.LoginPage;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import utils.MyDriver;
+import utils.baseTest.BaseTest;
 
-public class PurchaseTest {
+
+public class PurchaseTest  extends BaseTest{
     @Test
-    public void testItemsToBuyIsDisplayed() {
-        // Create MyDriver instance with a specific browser type (e.g., "chrome")
-        MyDriver myDriver = new MyDriver("chrome");
-        CartPage cartPage = new CartPage(myDriver.getDriver());  // Crear la instancia de CartPage
-        Assert.assertTrue(cartPage.isItemToBuyDisplayed(), "The items to buy are not displayed on the page.");
+    public void testPurchase() {
+            LoginPage loginPage = loadFirstPage();
+            loginPage.login("standard_user", "secret_sauce");
+            HomePage homePage = new HomePage(getDriver());
+            homePage.selectRandomProduct();
+            CartPage cartPage = homePage.cart();
+            Assert.assertTrue(cartPage.isItemToBuyDisplayed(), "Product not added to the cart");
+            Checkout1Page checkout1Page = cartPage.checkout();
+            Checkout2Page checkout2Page = checkout1Page.continueCheck2("Helen", "Bernal", "0930");
+            Checkout3Page checkout3Page = checkout2Page.finishPurchase();
+            Assert.assertTrue(checkout3Page.isOrderDoneTxtDisplayed(), "Purchase not successfull");
 
-        // Assert if the item is displayed
+        }
     }
-}
+

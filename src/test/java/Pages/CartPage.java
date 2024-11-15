@@ -19,7 +19,7 @@ public class CartPage extends BasePage {
     @FindBy(css=".cart_item")
     public static WebElement itemstoBuy;
 
-    public CartPage removeProduct (String text) {
+    public CartPage removeProduct () {
         removeBtn.click();
         return new CartPage(super.getDriver());
     }
@@ -40,5 +40,12 @@ public class CartPage extends BasePage {
             }catch (NoSuchElementException e){
                 return false;
             }
+    }
+    public boolean isCartEmpty() {
+        try {
+            return !isItemToBuyDisplayed();
+        } catch (Exception e) {
+            return true;
+        }
     }
 }

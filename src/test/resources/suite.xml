@@ -5,9 +5,9 @@
     <parameter name="url" value="https://www.saucedemo.com"/>
 
     <!-- Definir el test con las clases correspondientes -->
-    <test name="Base Test">
+    <test name="Purchase Test">
         <classes>
-            <class name="utils.baseTest.BaseTest"/>
+            <class name="tests.PurchaseTest"/>
         </classes>
     </test>
 </suite>
