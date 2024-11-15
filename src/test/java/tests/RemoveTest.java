@@ -1,5 +1,7 @@
 package tests;
-import Pages.*;
+import Pages.CartPage;
+import Pages.HomePage;
+import Pages.LoginPage;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import utils.baseTest.BaseTest;
@@ -15,11 +17,9 @@ public class RemoveTest extends BaseTest {
         homePage.selectRandomProduct();
         homePage.selectRandomProduct();
         CartPage cartPage = homePage.cart();
-
         cartPage = cartPage.removeProduct();
         cartPage = cartPage.removeProduct();
         cartPage = cartPage.removeProduct();
-
         boolean isCartEmpty = cartPage.isCartEmpty();
         Assert.assertTrue(isCartEmpty, "Cart is not empty");
     }

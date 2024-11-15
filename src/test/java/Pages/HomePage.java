@@ -1,7 +1,5 @@
 package Pages;
-
 import org.openqa.selenium.By;
-import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -9,7 +7,6 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import utils.basePage.BasePage;
 
-import java.time.Duration;
 import java.util.List;
 import java.util.Random;
 
@@ -35,16 +32,9 @@ public class HomePage extends BasePage {
         return new CartPage(super.getDriver());
     }
 
-    public HomePage removeProduct() {
-        removeButton.click();
-        return new HomePage(super.getDriver());
-    }
-
     public HomePage selectRandomProduct() {
         WebDriverWait wait = new WebDriverWait(driver, 10);
-
         List<WebElement> products = wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.cssSelector(".inventory_item")));
-
         if (products.size() < 1) {
             throw new IllegalStateException("No products available");
         }
@@ -52,10 +42,8 @@ public class HomePage extends BasePage {
         Random random = new Random();
         int randomIndex = random.nextInt(products.size());
         WebElement randomProduct = products.get(randomIndex);
-
         WebElement addToCartButton = randomProduct.findElement(By.cssSelector(".btn_inventory"));
         addToCartButton.click();
-
         return this;
     }
 
@@ -65,15 +53,9 @@ public class HomePage extends BasePage {
     }
 
     public LoginPage logout() {
+        WebDriverWait wait = new WebDriverWait(driver, 10);
+        wait.until(ExpectedConditions.elementToBeClickable(logoutSidebar));
         logoutSidebar.click();
         return new LoginPage(driver);
-    }
-
-    public boolean isLogoutSidebarDisplayed() {
-        try {
-            return logoutSidebar.isDisplayed();
-        } catch (NoSuchElementException e) {
-            return false;
-        }
     }
 }
