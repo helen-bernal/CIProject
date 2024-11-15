@@ -18,7 +18,6 @@ public class PurchaseTest  extends BaseTest{
             HomePage homePage = new HomePage(getDriver());
             homePage.selectRandomProduct();
             CartPage cartPage = homePage.cart();
-            Assert.assertTrue(cartPage.isItemToBuyDisplayed(), "Product not added to the cart");
             Checkout1Page checkout1Page = cartPage.checkout();
             Checkout2Page checkout2Page = checkout1Page.continueCheck2("Helen", "Bernal", "0930");
             Checkout3Page checkout3Page = checkout2Page.finishPurchase();

@@ -27,24 +27,26 @@ public class HomePage extends BasePage {
     private WebElement addButton;
     @FindBy(css="[id='remove-sauce-labs-backpack']")
     private WebElement removeButton;
-    @FindBy(css="inventory_item")
+    @FindBy(css=".inventory_item")
     private WebElement listofItems;
 
-    public CartPage cart () {
+    public CartPage cart() {
         shoppingCart.click();
         return new CartPage(super.getDriver());
     }
+
     public HomePage removeProduct() {
         removeButton.click();
         return new HomePage(super.getDriver());
     }
+
     public HomePage selectRandomProduct() {
         WebDriverWait wait = new WebDriverWait(driver, 10);
 
         List<WebElement> products = wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.cssSelector(".inventory_item")));
 
-        if (products.size() < 2) {
-            throw new IllegalStateException("Yhere are no Products");
+        if (products.size() < 1) {
+            throw new IllegalStateException("No products available");
         }
 
         Random random = new Random();
@@ -52,7 +54,6 @@ public class HomePage extends BasePage {
         WebElement randomProduct = products.get(randomIndex);
 
         WebElement addToCartButton = randomProduct.findElement(By.cssSelector(".btn_inventory"));
-
         addToCartButton.click();
 
         return this;
@@ -62,14 +63,16 @@ public class HomePage extends BasePage {
         burgerMenuButton.click();
         return new HomePage(super.getDriver());
     }
+
     public LoginPage logout() {
         logoutSidebar.click();
         return new LoginPage(driver);
     }
+
     public boolean isLogoutSidebarDisplayed() {
-        try{
+        try {
             return logoutSidebar.isDisplayed();
-        }catch (NoSuchElementException e){
+        } catch (NoSuchElementException e) {
             return false;
         }
     }

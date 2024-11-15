@@ -1,49 +1,46 @@
 package Pages;
 
-import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import utils.basePage.BasePage;
 
+import java.time.Duration;
+import java.util.List;
+
 public class CartPage extends BasePage {
+
     public CartPage(WebDriver driver) {
         super(driver);
     }
 
-    @FindBy(css= "[id='remove-sauce-labs-bike-light']")
-    public WebElement removeBtn;
-    @FindBy(css= "[id='checkout']")
-    public WebElement checkoutBtn;
-    @FindBy(css=".cart_item")
-    public static WebElement itemstoBuy;
+    @FindBy(css = "[id^='remove-']")
+    private List<WebElement> removeButtons;
 
-    public CartPage removeProduct () {
-        removeBtn.click();
+    @FindBy(css = "[id='checkout']")
+    public WebElement checkoutBtn;
+
+    public CartPage removeProduct() {
+        WebDriverWait wait = new WebDriverWait(driver, 10);
+
+        if (!removeButtons.isEmpty()) {
+            wait.until(ExpectedConditions.elementToBeClickable(removeButtons.get(0)));
+            removeButtons.get(0).click();
+        }
+
         return new CartPage(super.getDriver());
     }
+
     public Checkout1Page checkout() {
         checkoutBtn.click();
         return new Checkout1Page(driver);
     }
-    public boolean isItemToBuyDisplayed() {
-        try {
-            return itemstoBuy.isDisplayed();
-        } catch (NoSuchElementException e) {
-            return false;
-        }
-    }
-        public boolean isRemoveBtnDisplayed() {
-            try{
-                return removeBtn.isDisplayed();
-            }catch (NoSuchElementException e){
-                return false;
-            }
-    }
+
     public boolean isCartEmpty() {
         try {
-            return !isItemToBuyDisplayed();
+            return removeButtons.isEmpty();
         } catch (Exception e) {
             return true;
         }

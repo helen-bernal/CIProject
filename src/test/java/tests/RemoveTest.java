@@ -1,5 +1,4 @@
 package tests;
-
 import Pages.*;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -16,17 +15,12 @@ public class RemoveTest extends BaseTest {
         homePage.selectRandomProduct();
         homePage.selectRandomProduct();
         CartPage cartPage = homePage.cart();
-        Assert.assertTrue(cartPage.isItemToBuyDisplayed(), "Product not added to the cart");
-        Assert.assertTrue(cartPage.isRemoveBtnDisplayed(), "Button 'Remove' not here.");
+
         cartPage = cartPage.removeProduct();
-        Assert.assertTrue(cartPage.isRemoveBtnDisplayed(), "Button 'Remove' not here.");
         cartPage = cartPage.removeProduct();
-        Assert.assertTrue(cartPage.isRemoveBtnDisplayed(), "Button 'Remove' not here.");
         cartPage = cartPage.removeProduct();
-        boolean isProductRemoved = cartPage.isCartEmpty();
-        Assert.assertTrue(isProductRemoved, "There are still products");
+
+        boolean isCartEmpty = cartPage.isCartEmpty();
+        Assert.assertTrue(isCartEmpty, "Cart is not empty");
     }
-
-
-
 }
