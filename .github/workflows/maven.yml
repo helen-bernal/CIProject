@@ -45,16 +45,26 @@ jobs:
           echo "Estructura del proyecto:"
           ls -R $GITHUB_WORKSPACE
 
-      # Paso 5: Configurar Google Chrome y descargar ChromeDriver
+      # Paso 5: Instalar Google Chrome y descargar la versión correcta de ChromeDriver
       - name: Set up Chrome and ChromeDriver
         run: |
+          # Instalar Google Chrome
           sudo apt-get update
           sudo apt-get install -y google-chrome-stable
-          CHROME_DRIVER_VERSION=$(curl -sS chromedriver.storage.googleapis.com/LATEST_RELEASE)
+
+          # Obtener la versión de Google Chrome instalada
+          CHROME_VERSION=$(google-chrome-stable --version | sed 's/[^0-9]*\([0-9]*\.[0-9]*\.[0-9]*\)\..*/\1/')
+          echo "Versión de Google Chrome: $CHROME_VERSION"
+
+          # Descargar la versión correspondiente de ChromeDriver
+          CHROME_DRIVER_VERSION=$(curl -sS chromedriver.storage.googleapis.com/LATEST_RELEASE_$CHROME_VERSION)
+          echo "Versión de ChromeDriver: $CHROME_DRIVER_VERSION"
           wget https://chromedriver.storage.googleapis.com/$CHROME_DRIVER_VERSION/chromedriver_linux64.zip
           unzip chromedriver_linux64.zip
           sudo mv chromedriver /usr/local/bin/chromedriver
           sudo chmod +x /usr/local/bin/chromedriver
+
+          # Verificar versiones
           google-chrome-stable --version
           chromedriver --version
 
