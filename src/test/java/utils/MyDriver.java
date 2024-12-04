@@ -5,6 +5,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeDriverService;
 import org.openqa.selenium.chrome.ChromeOptions;
 import java.io.File;
+import java.time.Duration;  // Importa Duration
 
 public class MyDriver {
     public WebDriver driver;
@@ -39,7 +40,7 @@ public class MyDriver {
             ChromeDriverService service = new ChromeDriverService.Builder()
                     .usingDriverExecutable(new File(driverPath)) // Ruta del chromedriver
                     .usingAnyFreePort()  // Utiliza cualquier puerto libre
-                    .withTimeout(30000)  // Timeout de 30 segundos
+                    .withTimeout(Duration.ofSeconds(30))  // Timeout de 30 segundos usando Duration
                     .build();
 
             // Instanciación del WebDriver usando el servicio
