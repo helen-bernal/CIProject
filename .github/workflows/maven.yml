@@ -19,15 +19,18 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      # Paso 1: Check out el código desde el repositorio
       - name: Check out code
         uses: actions/checkout@v3
 
+      # Paso 2: Configurar el JDK
       - name: Set up JDK
         uses: actions/setup-java@v3
         with:
           java-version: '11'
           distribution: 'temurin'
 
+      # Paso 3: Cache de dependencias de Maven
       - name: Cache Maven dependencies
         uses: actions/cache@v3
         with:
@@ -36,26 +39,29 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-maven-
 
+      # Paso 4: Verificar la estructura del proyecto
       - name: Verificar la estructura del proyecto
         run: |
           echo "Estructura del proyecto:"
           ls -R $GITHUB_WORKSPACE
 
-      # Descargar ChromeDriver automáticamente usando la acción correcta
+      # Paso 5: Descargar y configurar ChromeDriver
       - name: Set up ChromeDriver
-        uses: browser-actions/setup-chromedriver@v2
+        uses: chrisjonesworkspace/setup-chromedriver@v1
         with:
           chromedriver-version: 'latest'
 
+      # Paso 6: Construir el proyecto con Maven
       - name: Build with Maven
         id: build
         run: mvn clean package
 
-      # Usar el input para el nombre del navegador
+      # Paso 7: Ejecutar las pruebas
       - name: Run tests
         if: steps.build.outcome == 'success'
         run: mvn -DbrowserName=${{ inputs.browserName }} verify
 
+      # Paso 8: Obtener historial de Allure
       - name: Get Allure history
         uses: actions/checkout@v3
         if: steps.build.outcome == 'success'
@@ -64,6 +70,7 @@ jobs:
           ref: gh-pages
           path: gh-pages
 
+      # Paso 9: Generar reporte Allure
       - name: Allure report action
         uses: simple-elf/allure-report-action@master
         if: steps.build.outcome == 'success'
@@ -74,6 +81,7 @@ jobs:
           allure_report: allure-report
           allure_history: allure-history
 
+      # Paso 10: Desplegar reporte en GitHub Pages
       - name: Deploy report to Github Pages
         if: success()
         uses: crazy-max/ghaction-github-pages@v4
