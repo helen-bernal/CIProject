@@ -1,3 +1,4 @@
+
 name: Java Tests with Maven
 
 on:
@@ -41,21 +42,13 @@ jobs:
           echo "Estructura del proyecto:"
           ls -R $GITHUB_WORKSPACE
 
-      # Descargar ChromeDriver manualmente si es necesario
-      - name: Download ChromeDriver
-        run: |
-          wget https://chromedriver.storage.googleapis.com/131.0.6778.87/chromedriver_linux64.zip
-          unzip chromedriver_linux64.zip
-          mv chromedriver /usr/local/bin/
-
       - name: Build with Maven
         id: build
         run: mvn clean package
 
-      # Usar el input para el nombre del navegador
       - name: Run tests
         if: steps.build.outcome == 'success'
-        run: mvn -DbrowserName=${{ inputs.browserName }} verify
+        run: mvn -DbrowserName=${{ inputs.browserName || 'chrome' }} verify
 
       - name: Get Allure history
         uses: actions/checkout@v3
