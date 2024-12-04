@@ -12,9 +12,13 @@ import java.util.List;
 import java.util.Random;
 
 public class HomePage extends BasePage {
+    private WebDriverWait wait;
+
     public HomePage(WebDriver driver) {
         super(driver);
+        this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));
     }
+
     @FindBy(css=".shopping_cart_link")
     private WebElement shoppingCart;
     @FindBy(css="[id='react-burger-menu-btn']")
@@ -34,7 +38,6 @@ public class HomePage extends BasePage {
     }
 
     public HomePage selectRandomProduct() {
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));  // Corregido, usando Duration
         List<WebElement> products = wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.cssSelector(".inventory_item")));
         if (products.size() < 1) {
             throw new IllegalStateException("No products available");
@@ -54,7 +57,6 @@ public class HomePage extends BasePage {
     }
 
     public LoginPage logout() {
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));  // Corregido, usando Duration
         wait.until(ExpectedConditions.elementToBeClickable(logoutSidebar));
         logoutSidebar.click();
         return new LoginPage(driver);

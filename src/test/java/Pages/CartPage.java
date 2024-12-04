@@ -11,9 +11,11 @@ import java.time.Duration;
 import java.util.List;
 
 public class CartPage extends BasePage {
+    private WebDriverWait wait;
 
     public CartPage(WebDriver driver) {
         super(driver);
+        this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));
     }
 
     @FindBy(css = "[id^='remove-']")
@@ -23,8 +25,6 @@ public class CartPage extends BasePage {
     public WebElement checkoutBtn;
 
     public CartPage removeProduct() {
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));  // Corregido, usando Duration
-
         if (!removeButtons.isEmpty()) {
             wait.until(ExpectedConditions.elementToBeClickable(removeButtons.get(0)));
             removeButtons.get(0).click();

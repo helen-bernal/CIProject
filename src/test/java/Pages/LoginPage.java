@@ -10,9 +10,13 @@ import utils.basePage.BasePage;
 import java.time.Duration;
 
 public class LoginPage extends BasePage {
+    private WebDriverWait wait;
+
     public LoginPage(WebDriver driver) {
         super(driver);
+        this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));
     }
+
     @FindBy(css = "[id='user-name']")
     private WebElement usernameInput;
     @FindBy(css = "[id='password']")
@@ -26,9 +30,8 @@ public class LoginPage extends BasePage {
         loginButton.click();
         return new HomePage(super.getDriver());
     }
+
     public boolean isUserNameFieldVisible() {
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));  // Corregido, usando Duration
         return wait.until(ExpectedConditions.visibilityOf(usernameInput)) != null;
     }
 }
-
