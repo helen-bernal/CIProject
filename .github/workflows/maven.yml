@@ -41,9 +41,9 @@ jobs:
           echo "Estructura del proyecto:"
           ls -R $GITHUB_WORKSPACE
 
-      # Configuración correcta del ChromeDriver
+      # Descargar ChromeDriver automáticamente usando la acción correcta
       - name: Set up ChromeDriver
-        uses: actions/setup-chromedriver@v2
+        uses: browser-actions/setup-chromedriver@v2
         with:
           chromedriver-version: 'latest'
 
