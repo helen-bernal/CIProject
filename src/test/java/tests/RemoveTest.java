@@ -2,6 +2,8 @@ package tests;
 import Pages.CartPage;
 import Pages.HomePage;
 import Pages.LoginPage;
+import io.qameta.allure.Description;
+import io.qameta.allure.Story;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import utils.baseTest.BaseTest;

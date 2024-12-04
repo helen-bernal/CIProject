@@ -13,48 +13,48 @@
         <maven.compiler.target>1.8</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
-    <!-- https://mvnrepository.com/artifact/org.testng/testng -->
+
     <dependencies>
-        <!-- https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java -->
+        <!-- Selenium Dependency -->
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-java</artifactId>
             <version>3.141.59</version>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/log4j/log4j -->
+
+        <!-- Log4j for logging -->
         <dependency>
             <groupId>log4j</groupId>
             <artifactId>log4j</artifactId>
             <version>1.2.17</version>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-core -->
+        <!-- Log4j core for enhanced logging -->
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-core</artifactId>
             <version>2.24.1</version>
         </dependency>
-         <dependency>
-             <groupId>io.qameta.allure</groupId>
-             <artifactId>allure-testng</artifactId>
-             <version>2.13.8</version> 
-         </dependency>
-         <dependency>
-             <groupId>io.qameta.allure</groupId>
-             <artifactId>allure-maven</artifactId>
-             <version>2.13.8</version> 
-         </dependency>
 
+        <!-- Allure TestNG Dependency for Allure Reports -->
+        <dependency>
+            <groupId>io.qameta.allure</groupId>
+            <artifactId>allure-testng</artifactId>
+            <version>2.13.8</version>
+        </dependency>
+
+        <!-- TestNG for running tests -->
         <dependency>
             <groupId>org.testng</groupId>
             <artifactId>testng</artifactId>
             <version>6.14.3</version>
             <scope>test</scope>
         </dependency>
-
     </dependencies>
+
     <build>
         <plugins>
+            <!-- Maven Surefire Plugin for TestNG -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
@@ -65,7 +65,21 @@
                     </suiteXmlFiles>
                 </configuration>
             </plugin>
+
+            <!-- Allure Maven Plugin for generating reports -->
+            <plugin>
+                <groupId>io.qameta.allure</groupId>
+                <artifactId>allure-maven</artifactId>
+                <version>2.13.0</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>serve</goal> <!-- Generates and serves Allure reports -->
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
         </plugins>
     </build>
-
 </project>
