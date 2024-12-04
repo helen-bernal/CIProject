@@ -11,16 +11,17 @@ public class MyDriver {
         if ("chrome".equals(browser)) {
             String driverPath = "";
 
+            String projectDir = System.getProperty("user.dir");
             if (System.getProperty("os.name").toLowerCase().contains("win")) {
-                driverPath = "C:\\Users\\helen.bernal\\CIProject\\SouceDemoAutomationProject\\drivers\\chromedriver.exe";
-            } else if (System.getProperty("os.name").toLowerCase().contains("nix") || System.getProperty("os.name").toLowerCase().contains("nux") || System.getProperty("os.name").toLowerCase().contains("mac")) {
-                driverPath = "/home/runner/work/CIProject/SouceDemoAutomationProject/drivers/chromedriver";
+                driverPath = projectDir + "\\drivers\\chromedriver.exe";
+            } else if (System.getProperty("os.name").toLowerCase().contains("nix") ||
+                    System.getProperty("os.name").toLowerCase().contains("nux") ||
+                    System.getProperty("os.name").toLowerCase().contains("mac")) {
+                driverPath = projectDir + "/drivers/chromedriver";
             }
-
 
             System.out.println("Chromedriver path: " + driverPath);
 
-            // Configura la ruta del driver
             System.setProperty("webdriver.chrome.driver", driverPath);
 
             ChromeOptions options = new ChromeOptions();
