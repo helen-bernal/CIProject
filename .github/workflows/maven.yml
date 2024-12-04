@@ -41,6 +41,12 @@ jobs:
           echo "Estructura del proyecto:"
           ls -R $GITHUB_WORKSPACE
 
+      # Descargar ChromeDriver automáticamente
+      - name: Set up ChromeDriver
+        uses: browser-actions/setup-chromedriver@v2
+        with:
+          chromedriver-version: 'latest'
+
       - name: Build with Maven
         id: build
         run: mvn clean package

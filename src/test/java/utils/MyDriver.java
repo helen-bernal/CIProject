@@ -9,28 +9,15 @@ public class MyDriver {
 
     public MyDriver(String browser) {
         if ("chrome".equals(browser)) {
-            String driverPath = "";
+            // No es necesario especificar la ruta del chromedriver aquí,
+            // GitHub Actions ya se encarga de ello
 
-            String projectDir = System.getProperty("user.dir");
-
-            System.out.println("Directorio del proyecto: " + projectDir);
-
-            if (System.getProperty("os.name").toLowerCase().contains("win")) {
-                driverPath = projectDir + "/drivers/chromedriver.exe";
-            }
-            else if (System.getProperty("os.name").toLowerCase().contains("nix") ||
-                    System.getProperty("os.name").toLowerCase().contains("nux") ||
-                    System.getProperty("os.name").toLowerCase().contains("mac")) {
-                driverPath = projectDir + "/drivers/chromedriver";
-            }
-
-            System.out.println("Ruta del chromedriver: " + driverPath);
-
-            System.setProperty("webdriver.chrome.driver", driverPath);
+            System.out.println("Configurando el driver de Chrome...");
 
             ChromeOptions options = new ChromeOptions();
-            options.addArguments("--headless");
+            options.addArguments("--headless");  // Si deseas que el navegador se ejecute en modo headless
 
+            // Se crea el driver sin necesidad de especificar la ruta del chromedriver
             driver = new ChromeDriver(options);
         }
     }
