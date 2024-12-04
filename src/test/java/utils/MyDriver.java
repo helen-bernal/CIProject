@@ -9,10 +9,20 @@ public class MyDriver {
 
     public MyDriver(String browser) {
         if ("chrome".equals(browser)) {
-            System.setProperty("webdriver.chrome.driver", "C:\\Users\\helen.bernal\\SouceDemoAutomationProject\\drivers\\chromedriver.exe");
+            String driverPath = "";
+
+            // Check the operating system
+            if (System.getProperty("os.name").toLowerCase().contains("win")) {
+                driverPath = "C:\\Users\\helen.bernal\\SouceDemoAutomationProject\\drivers\\chromedriver.exe"; // Windows path
+            } else {
+                driverPath = "./drivers/chromedriver"; // Linux or macOS path
+            }
+
+            // Set ChromeDriver property
+            System.setProperty("webdriver.chrome.driver", driverPath);
 
             ChromeOptions options = new ChromeOptions();
-            options.addArguments("--headless");
+            options.addArguments("--headless"); // Run headless in CI/CD
 
             driver = new ChromeDriver(options);
         }
