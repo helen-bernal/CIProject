@@ -7,8 +7,9 @@ import org.testng.annotations.Test;
 import utils.baseTest.BaseTest;
 
 public class RemoveTest extends BaseTest {
-
-    @Test
+    @Test(description = "Verify removing items from the cart")
+    @Story("Remove items from the cart")
+    @Description("This test verifies that a user can remove all products from the cart and the cart becomes empty.")
     public void testRemoveItemFromCart() {
         LoginPage loginPage = loadFirstPage();
         loginPage.login("standard_user", "secret_sauce");
