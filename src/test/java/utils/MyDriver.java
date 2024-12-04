@@ -2,7 +2,9 @@ package utils;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeDriverService;
 import org.openqa.selenium.chrome.ChromeOptions;
+import java.io.File;
 
 public class MyDriver {
     public WebDriver driver;
@@ -26,12 +28,22 @@ public class MyDriver {
 
             System.out.println("Ruta del chromedriver: " + driverPath);
 
+            // Usar WebDriverManager o establecer el path si se está usando el driver manualmente
             System.setProperty("webdriver.chrome.driver", driverPath);
 
+            // Configuración de ChromeOptions
             ChromeOptions options = new ChromeOptions();
-            options.addArguments("--headless");
+            options.addArguments("--headless");  // Ejecutar en modo sin cabeza
 
-            driver = new ChromeDriver(options);
+            // Configuración del servicio de ChromeDriver
+            ChromeDriverService service = new ChromeDriverService.Builder()
+                    .usingDriverExecutable(new File(driverPath)) // Ruta del chromedriver
+                    .usingAnyFreePort()  // Utiliza cualquier puerto libre
+                    .withTimeout(30000)  // Timeout de 30 segundos
+                    .build();
+
+            // Instanciación del WebDriver usando el servicio
+            driver = new ChromeDriver(service, options);
         }
     }
 
