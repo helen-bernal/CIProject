@@ -7,6 +7,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import utils.basePage.BasePage;
 
+import java.time.Duration;
 import java.util.List;
 import java.util.Random;
 
@@ -33,7 +34,7 @@ public class HomePage extends BasePage {
     }
 
     public HomePage selectRandomProduct() {
-        WebDriverWait wait = new WebDriverWait(driver, 10);
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));  // Corregido, usando Duration
         List<WebElement> products = wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.cssSelector(".inventory_item")));
         if (products.size() < 1) {
             throw new IllegalStateException("No products available");
@@ -53,7 +54,7 @@ public class HomePage extends BasePage {
     }
 
     public LoginPage logout() {
-        WebDriverWait wait = new WebDriverWait(driver, 10);
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));  // Corregido, usando Duration
         wait.until(ExpectedConditions.elementToBeClickable(logoutSidebar));
         logoutSidebar.click();
         return new LoginPage(driver);

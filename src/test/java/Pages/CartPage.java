@@ -23,7 +23,7 @@ public class CartPage extends BasePage {
     public WebElement checkoutBtn;
 
     public CartPage removeProduct() {
-        WebDriverWait wait = new WebDriverWait(driver, 10);
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));  // Corregido, usando Duration
 
         if (!removeButtons.isEmpty()) {
             wait.until(ExpectedConditions.elementToBeClickable(removeButtons.get(0)));

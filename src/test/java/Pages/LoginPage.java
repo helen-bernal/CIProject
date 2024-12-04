@@ -7,6 +7,8 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import utils.basePage.BasePage;
 
+import java.time.Duration;
+
 public class LoginPage extends BasePage {
     public LoginPage(WebDriver driver) {
         super(driver);
@@ -25,7 +27,7 @@ public class LoginPage extends BasePage {
         return new HomePage(super.getDriver());
     }
     public boolean isUserNameFieldVisible() {
-        WebDriverWait wait = new WebDriverWait(driver, 10);
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));  // Corregido, usando Duration
         return wait.until(ExpectedConditions.visibilityOf(usernameInput)) != null;
     }
 }
