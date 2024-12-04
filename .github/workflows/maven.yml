@@ -19,18 +19,15 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # Paso 1: Check out el código desde el repositorio
       - name: Check out code
         uses: actions/checkout@v3
 
-      # Paso 2: Configurar el JDK
       - name: Set up JDK
         uses: actions/setup-java@v3
         with:
           java-version: '11'
           distribution: 'temurin'
 
-      # Paso 3: Cache de dependencias de Maven
       - name: Cache Maven dependencies
         uses: actions/cache@v3
         with:
@@ -39,53 +36,27 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-maven-
 
-      # Paso 4: Verificar la estructura del proyecto
       - name: Verificar la estructura del proyecto
         run: |
           echo "Estructura del proyecto:"
           ls -R $GITHUB_WORKSPACE
 
-      # Paso 5: Instalar Google Chrome y descargar la versión correcta de ChromeDriver
-      - name: Set up Chrome and ChromeDriver
+      # Descargar ChromeDriver manualmente si es necesario
+      - name: Download ChromeDriver
         run: |
-          # Instalar Google Chrome
-          sudo apt-get update
-          sudo apt-get install -y google-chrome-stable || { echo 'Error al instalar Google Chrome'; exit 1; }
+          wget https://chromedriver.storage.googleapis.com/131.0.6778.87/chromedriver_linux64.zip
+          unzip chromedriver_linux64.zip
+          mv chromedriver /usr/local/bin/
 
-          # Verificar que Google Chrome se haya instalado correctamente
-          google-chrome-stable --version || { echo 'Google Chrome no se pudo instalar correctamente'; exit 1; }
-
-          # Obtener la versión de Google Chrome instalada
-          CHROME_VERSION=$(google-chrome-stable --version | sed 's/[^0-9]*\([0-9]*\.[0-9]*\.[0-9]*\)\..*/\1/')
-          echo "Versión de Google Chrome: $CHROME_VERSION"
-
-          # Descargar la versión correspondiente de ChromeDriver
-          CHROME_DRIVER_VERSION=$(curl -sS chromedriver.storage.googleapis.com/LATEST_RELEASE_$CHROME_VERSION)
-          echo "Versión de ChromeDriver: $CHROME_DRIVER_VERSION"
-          if [ -z "$CHROME_DRIVER_VERSION" ]; then
-            echo "No se pudo obtener la versión de ChromeDriver"; exit 1;
-          fi
-          
-          wget https://chromedriver.storage.googleapis.com/$CHROME_DRIVER_VERSION/chromedriver_linux64.zip || { echo 'Error al descargar ChromeDriver'; exit 1; }
-          unzip chromedriver_linux64.zip || { echo 'Error al descomprimir ChromeDriver'; exit 1; }
-          sudo mv chromedriver /usr/local/bin/chromedriver
-          sudo chmod +x /usr/local/bin/chromedriver
-
-          # Verificar las versiones de Chrome y ChromeDriver
-          google-chrome-stable --version
-          chromedriver --version
-
-      # Paso 6: Construir el proyecto con Maven
       - name: Build with Maven
         id: build
         run: mvn clean package
 
-      # Paso 7: Ejecutar las pruebas
+      # Usar el input para el nombre del navegador
       - name: Run tests
         if: steps.build.outcome == 'success'
         run: mvn -DbrowserName=${{ inputs.browserName }} verify
 
-      # Paso 8: Obtener historial de Allure
       - name: Get Allure history
         uses: actions/checkout@v3
         if: steps.build.outcome == 'success'
@@ -94,7 +65,6 @@ jobs:
           ref: gh-pages
           path: gh-pages
 
-      # Paso 9: Generar reporte Allure
       - name: Allure report action
         uses: simple-elf/allure-report-action@master
         if: steps.build.outcome == 'success'
@@ -105,7 +75,6 @@ jobs:
           allure_report: allure-report
           allure_history: allure-history
 
-      # Paso 10: Desplegar reporte en GitHub Pages
       - name: Deploy report to Github Pages
         if: success()
         uses: crazy-max/ghaction-github-pages@v4
