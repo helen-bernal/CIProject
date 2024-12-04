@@ -5,7 +5,10 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import utils.baseTest.BaseTest;
 public class LogoutTest extends BaseTest{
-    @Test
+    @Feature("Logout")
+    @Test(description = "Verify the logout process is correct")
+    @Story("User logs out successfully")
+    @Description("This test verifies that a user can log out and is at the LoginPage again.")
     public void testLogout() {
         LoginPage loginPage = loadFirstPage();
         loginPage.login("standard_user", "secret_sauce");
