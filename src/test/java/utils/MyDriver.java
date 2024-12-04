@@ -16,12 +16,12 @@ public class MyDriver {
             System.out.println("Directorio del proyecto: " + projectDir);
 
             if (System.getProperty("os.name").toLowerCase().contains("win")) {
-                driverPath = projectDir + "\\SouceDemoAutomationProject\\drivers\\chromedriver.exe";
+                driverPath = projectDir + "/drivers/chromedriver.exe";
             }
             else if (System.getProperty("os.name").toLowerCase().contains("nix") ||
                     System.getProperty("os.name").toLowerCase().contains("nux") ||
                     System.getProperty("os.name").toLowerCase().contains("mac")) {
-                driverPath = projectDir + "/SouceDemoAutomationProject/drivers/chromedriver";
+                driverPath = projectDir + "/drivers/chromedriver";
             }
 
             System.out.println("Ruta del chromedriver: " + driverPath);
@@ -35,12 +35,14 @@ public class MyDriver {
         }
     }
 
+    // Método para cerrar el driver
     public void closeDriver() {
         if (driver != null) {
             driver.quit();
         }
     }
 
+    // Método para obtener la instancia del driver
     public WebDriver getDriver() {
         return this.driver;
     }

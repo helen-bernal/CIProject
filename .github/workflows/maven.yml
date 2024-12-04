@@ -36,7 +36,6 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-maven-
 
-      # Verificar la estructura del proyecto
       - name: Verificar la estructura del proyecto
         run: |
           echo "Estructura del proyecto:"
