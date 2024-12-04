@@ -17,10 +17,10 @@ public class MyDriver {
                 driverPath = "/home/runner/work/CIProject/SouceDemoAutomationProject/drivers/chromedriver";
             }
 
-            System.setProperty("webdriver.chrome.driver", "C:/Users/helen.bernal/CIProject/SouceDemoAutomationProject/drivers/chromedriver.exe");
+            System.setProperty("webdriver.chrome.driver", driverPath);
 
             ChromeOptions options = new ChromeOptions();
-            options.addArguments("--headless"); // Run headless in CI/CD
+            options.addArguments("--headless");
 
             driver = new ChromeDriver(options);
         }
