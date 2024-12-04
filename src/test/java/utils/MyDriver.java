@@ -14,7 +14,7 @@ public class MyDriver {
             if (System.getProperty("os.name").toLowerCase().contains("win")) {
                 driverPath = "C:\\Users\\helen.bernal\\CIProject\\SouceDemoAutomationProject\\drivers\\chromedriver.exe";
             } else {
-                driverPath = "/home/runner/work/CIProject/SouceDemoAutomationProject/drivers/chromedriver";
+                driverPath = "/home/runner/work/CIProject/SouceDemoAutomationProject/drivers/chromedriver.exe";
             }
 
             System.setProperty("webdriver.chrome.driver", driverPath);
