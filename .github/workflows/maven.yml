@@ -36,16 +36,12 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-maven-
 
-      - name: Verificar la estructura del proyecto
-        run: |
-          echo "Estructura del proyecto:"
-          ls -R $GITHUB_WORKSPACE
+      - name: Set up ChromeDriver
+        uses: actions/setup-chromedriver@v2
 
-      # Renombrar chromedriver.exe a chromedriver (sin la extensión .exe)
       - name: Rename chromedriver to chromedriver
         run: mv /home/runner/work/CIProject/CIProject/drivers/chromedriver.exe /home/runner/work/CIProject/CIProject/drivers/chromedriver
 
-      # Dar permisos de ejecución a chromedriver
       - name: Set execute permissions for chromedriver
         run: chmod +x /home/runner/work/CIProject/CIProject/drivers/chromedriver
 
