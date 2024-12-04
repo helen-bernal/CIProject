@@ -12,6 +12,7 @@ public class MyDriver {
             String driverPath = "";
 
             String projectDir = System.getProperty("user.dir");
+
             if (System.getProperty("os.name").toLowerCase().contains("win")) {
                 driverPath = projectDir + "\\drivers\\chromedriver.exe";
             } else if (System.getProperty("os.name").toLowerCase().contains("nix") ||
@@ -19,6 +20,7 @@ public class MyDriver {
                     System.getProperty("os.name").toLowerCase().contains("mac")) {
                 driverPath = projectDir + "/drivers/chromedriver";
             }
+
 
             System.out.println("Chromedriver path: " + driverPath);
 
