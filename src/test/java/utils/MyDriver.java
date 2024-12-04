@@ -11,14 +11,12 @@ public class MyDriver {
         if ("chrome".equals(browser)) {
             String driverPath = "";
 
-            // Check the operating system
             if (System.getProperty("os.name").toLowerCase().contains("win")) {
-                driverPath = "C:\\Users\\helen.bernal\\SouceDemoAutomationProject\\drivers\\chromedriver.exe"; // Windows path
+                driverPath = "C:\\Users\\helen.bernal\\CIProject\\SouceDemoAutomationProject\\drivers\\chromedriver.exe";
             } else {
-                driverPath = "./drivers/chromedriver"; // Linux or macOS path
+                driverPath = "./drivers/chromedriver";
             }
 
-            // Set ChromeDriver property
             System.setProperty("webdriver.chrome.driver", driverPath);
 
             ChromeOptions options = new ChromeOptions();
