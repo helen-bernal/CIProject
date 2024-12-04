@@ -10,7 +10,11 @@ import org.testng.annotations.Test;
 import utils.baseTest.BaseTest;
 
 public class PurchaseTest  extends BaseTest{
-    @Test
+    @Epic("Ecommerce WebPAge Automation")
+    @Feature("Purchase Flow")
+    @Test(description = "Verify the purchase flow")
+    @Story("Complete a purchase")
+    @Description("This test verifies the entire purchase flow from login to order confirmation.")
     public void testPurchase() {
             LoginPage loginPage = loadFirstPage();
             loginPage.login("standard_user", "secret_sauce");
