@@ -14,11 +14,11 @@ public class MyDriver {
             String projectDir = System.getProperty("user.dir");
 
             if (System.getProperty("os.name").toLowerCase().contains("win")) {
-                driverPath = projectDir + "\\drivers\\chromedriver.exe";
+                driverPath = projectDir + "\\SouceDemoAutomationProject\\drivers\\chromedriver.exe";
             } else if (System.getProperty("os.name").toLowerCase().contains("nix") ||
                     System.getProperty("os.name").toLowerCase().contains("nux") ||
                     System.getProperty("os.name").toLowerCase().contains("mac")) {
-                driverPath = projectDir + "/drivers/chromedriver";
+                driverPath = projectDir + "/SouceDemoAutomationProject/drivers/chromedriver";  // Ruta para Linux/macOS
             }
 
 
